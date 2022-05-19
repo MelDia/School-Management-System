@@ -4,7 +4,7 @@
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
-        <title>Students System</title>
+        <title>School management System</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
             
@@ -45,30 +45,54 @@
                 color: var(--primary-color);
                 background-color: var(--secondary-color);
             }
-            /**********/
-            h3 {
+            /************/
+            .list-students h3 {
                 color: var(--tertiary-color);
                 text-transform: uppercase;
                 margin: 5px 10px 5px 10px;
             }
-            /**********/
-            .form-group {
+            .add-btn {
                 margin: 5px 10px 5px 10px;
-                color: var(--tertiary-color);
-                font-weight: bold;
             }
-            .form-group input {
-                margin-bottom: 10px;
-            }
-            .box-footer .btn {
-                margin: 5px 10px 5px 10px;
+            .add-btn .btn {
                 background-color: var(--fourth-color);
                 color: var(--secondary-color);
                 border-radius: 10px;
                 border: none;
                 outline:none;
                 box-shadow: none;
+            }
+            /*************/
+            thead {
+                background-color: var(--primary-color);
+                color: var(--secondary-color);
+                font-size: 18px;
                 text-transform: uppercase;
+            }
+            td {
+                font-size: 15px;
+                color: var(--tertiary-color);
+            }
+            .update-btn {
+                background-color: var(--fourth-color);
+                color: var(--secondary-color);
+                border-radius: 10px;
+                border: none;
+                outline:none;
+                box-shadow: none;
+            }
+            .delete-btn {
+                background-color: #F32424;
+                color: var(--secondary-color);
+                border-radius: 10px;
+                border: none;
+                outline:none;
+                box-shadow: none;
+            }
+            .signature {
+                font-size: 14px;
+                font-weight: bold;
+                color: var(--fourth-color);
             }
             /**********/
         </style>
@@ -77,7 +101,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><i class="bi bi-person-fill"></i> Students management system</a>
+                <a class="navbar-brand" th:href="@{/}"><i class="bi bi-person-fill"></i> School management system</a>
                 <!-- Toggler/collapsibe Button -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -89,41 +113,49 @@
                             <a class="nav-link" th:href="@{/students}">Students</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/students}">Teachers</a>
+                            <a class="nav-link" th:href="@{/teachers}">Teachers</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
         
-        <!-- UPDATE FORM -->
+        <!-- CONTENTS TEACHERS -->
         <div class="container mt-5">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center cart">
-                    <h3>Update student</h3>
-                    <div class="card-body">
-                        <form th:action="@{/students/{id} (id=${student.id})}" th:object="${student}" method="POST" class="mb-5">
-                            <div class="form-group">
-                                <label>First name</label>
-                                <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Enter first name"  />
-                            </div>
-                            <div class="form-group">
-                                <label>Last name</label>
-                                <input type="text" name="lastName" th:field="*{lastName}" class="form-control" placeholder="Enter last name"  />
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Enter email" />
-                            </div>
-                            <div class = "box-footer">
-                                <button type="submit" class = "btn">
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            <div class="row row-cols-auto mb-3">
+                <div class="col list-students">
+                    <h3> List of teachers </h3>
                 </div>
-            </div>            
+                <div class="col add-btn">
+                    <a th:href = "@{/teachers/new}" class = "btn"> <i class="bi bi-person-plus-fill"></i> Add </a>
+                </div>
+            </div>
+            <!-- TABLE -->
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Signature</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each = "teacher: ${teachers}">
+                        <td th:text = "${teacher.name}"></td>
+                        <td th:text = "${teacher.lastName}"></td>
+                        <td th:text = "${teacher.contact}"></td>
+                        <td th:text = "${teacher.signature}" class="signature"></td>
+                        <td th:text = "${teacher.status}" ></td>
+                        <td>
+                            <a th:href = "@{/teachers/edit/{id}(id=${teacher.id})}" class = "btn update-btn">Update</a>
+                            <a th:href = "@{/teachers/delete/{id}(id=${teacher.id})}" class = "btn delete-btn"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

@@ -21,10 +21,10 @@ public class StudentControl {
     private StudentService stuServ;
 
 
-    @GetMapping("/index")
+    @GetMapping("/students")
     public String listStudents(Model model) {
         model.addAttribute("students", stuServ.getAllStudents());
-        return "index";
+        return "students";
     }
 
     @GetMapping("/students/new")
@@ -37,7 +37,7 @@ public class StudentControl {
     @PostMapping("/students/add")
     public String saveStudent(@ModelAttribute("student") Student student) {
         stuServ.saveStudent(student);
-        return "redirect:/index";
+        return "redirect:/students";
     }
 
     @GetMapping("/students/edit/{id}")
@@ -55,13 +55,13 @@ public class StudentControl {
         existing.setEmail(student.getEmail());
 
         stuServ.updateStudent(existing);
-        return "redirect:/index";
+        return "redirect:/students";
     }
 
     @GetMapping("/students/delete/{id}")
     public String deleteStudent(@PathVariable Long id) {
         stuServ.deleteStudent(id);
-        return "redirect:/index";
+        return "redirect:/students";
     }
     
 }

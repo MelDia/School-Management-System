@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>Students System</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+        
+        <style>
+            :root {
+                --primary-color: #205375;
+                --secondary-color: #Ffffff;
+                --tertiary-color: #112B3C;
+                --fourth-color: #F66B0E;
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+            nav {
+                background-color: var(--primary-color);
+            }
+            .navbar-brand {
+                color: var(--secondary-color);
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0 15px 0 15px;
+            }
+            .navbar-brand:hover{
+                color: var(--secondary-color);
+            }
+            .nav-link {
+                color: var(--secondary-color);
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            .nav-link:hover {
+                color: var(--primary-color);
+                background-color: var(--secondary-color);
+            }
+            /**********/
+            h3 {
+                color: var(--tertiary-color);
+                text-transform: uppercase;
+                margin: 5px 10px 5px 10px;
+            }
+            /**********/
+            .form-group {
+                margin: 5px 10px 5px 10px;
+                color: var(--tertiary-color);
+                font-weight: bold;
+            }
+            .form-group input {
+                margin-bottom: 10px;
+            }
+            .box-footer .btn {
+                margin: 5px 10px 5px 10px;
+                background-color: var(--fourth-color);
+                color: var(--secondary-color);
+                border-radius: 10px;
+                border: none;
+                outline:none;
+                box-shadow: none;
+                text-transform: uppercase;
+            }
+            /**********/
+            footer {
+                background-color: var(--primary-color);
+                height: 175px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><i class="bi bi-person-fill"></i> Students management system</a>
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/students}">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/students}">Teachers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- UPDATE FORM -->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center cart">
+                    <h3>Update student</h3>
+                    <div class="card-body">
+                        <form th:action="@{/students/{id} (id=${student.id})}" th:object="${student}" method="POST">
+                            <div class="form-group">
+                                <label>First name</label>
+                                <input type="text" name="name" th:field="*{name}" class="form-control" placeholder="Enter first name"  />
+                            </div>
+                            <div class="form-group">
+                                <label>Last name</label>
+                                <input type="text" name="lastName" th:field="*{lastName}" class="form-control" placeholder="Enter last name"  />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Enter email" />
+                            </div>
+                            <div class = "box-footer">
+                                <button type="submit" class = "btn">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <footer class="mt-5"></footer>
+        
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+</html>

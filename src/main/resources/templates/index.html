@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>School management System</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+        
+        <style>
+            :root {
+                --primary-color: #205375;
+                --secondary-color: #Ffffff;
+                --tertiary-color: #112B3C;
+                --fourth-color: #F66B0E;
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+            nav {
+                background-color: var(--primary-color);
+            }
+            .navbar-brand {
+                color: var(--secondary-color);
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0 15px 0 15px;
+            }
+            .navbar-brand:hover{
+                color: var(--secondary-color);
+            }
+            .nav-link {
+                color: var(--secondary-color);
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            .nav-link:hover {
+                color: var(--primary-color);
+                background-color: var(--secondary-color);
+            }
+            /************/
+            .list-students h3 {
+                color: var(--tertiary-color);
+                text-transform: uppercase;
+                margin: 5px 10px 5px 10px;
+            }
+            .add-btn {
+                margin: 5px 10px 5px 10px;
+            }
+            .add-btn .btn {
+                background-color: var(--fourth-color);
+                color: var(--secondary-color);
+                border-radius: 10px;
+                border: none;
+                outline:none;
+                box-shadow: none;
+            }
+            /*************/
+            thead {
+                background-color: var(--primary-color);
+                color: var(--secondary-color);
+                font-size: 18px;
+                text-transform: uppercase;
+            }
+            td {
+                font-size: 15px;
+                color: var(--tertiary-color);
+            }
+            .update-btn {
+                background-color: var(--fourth-color);
+                color: var(--secondary-color);
+                border-radius: 10px;
+                border: none;
+                outline:none;
+                box-shadow: none;
+            }
+            .delete-btn {
+                background-color: #F32424;
+                color: var(--secondary-color);
+                border-radius: 10px;
+                border: none;
+                outline:none;
+                box-shadow: none;
+            }
+            /**********/
+            footer {
+                background-color: var(--primary-color);
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand"><i class="bi bi-person-fill"></i> School management system</a>
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/index}">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Teachers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- CONTENTS STUDENTS -->
+        <div class="container mt-5">
+            <div class="row row-cols-auto mb-3">
+                <div class="col list-students">
+                    <h3> List of students </h3>
+                </div>
+                <div class="col add-btn">
+                    <a th:href = "@{/students/new}" class = "btn"> <i class="bi bi-person-plus-fill"></i> Add </a>
+                </div>
+            </div>
+            <!-- TABLE -->
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each = "student: ${students}">
+                        <td th:text = "${student.name}"></td>
+                        <td th:text = "${student.lastName}"></td>
+                        <td th:text = "${student.email}"></td>
+                        <td>
+                            <a th:href = "@{/students/edit/{id}(id=${student.id})}" class = "btn update-btn">Update</a>
+                            <a th:href = "@{/students/delete/{id}(id=${student.id})}" class = "btn delete-btn"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <footer class="mt-5"></footer>
+        
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+</html>
